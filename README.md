@@ -21,6 +21,5 @@ docker run -it --rm objective/challenge play
 Após criado a imagem, execute:
 
 ```shell
-# Rodar o jogo
 docker run -it --rm objective/challenge test
 ```
