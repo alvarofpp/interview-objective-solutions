@@ -7,7 +7,7 @@ class FoodState extends State
     public function action(): void
     {
         $confirm = $this->getGame()
-            ->confirm("O prato que você pensou é {$this->getDescription()}? (sim/não)");
+            ->displayConfirm("O prato que você pensou é {$this->getDescription()}? (sim/não)");
         $newState = $confirm ? self::answerRightState($this->getGame()->getInitialState()) : $this->collectFood();
 
         $this->getGame()->setState($newState);
@@ -16,9 +16,9 @@ class FoodState extends State
     private function collectFood(): State
     {
         $foodName = $this->getGame()
-            ->ask('Qual prato você pensou?');
+            ->displayAsk('Qual prato você pensou?');
         $adjective = $this->getGame()
-            ->ask("{$foodName} é ______ mas {$this->getDescription()} não");
+            ->displayAsk("{$foodName} é ______ mas {$this->getDescription()} não");
         $parentState = $this->getParentState();
 
         $questionState = (new QuestionState($adjective))

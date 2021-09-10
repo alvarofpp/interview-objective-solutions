@@ -2,6 +2,7 @@
 
 namespace App\Classes;
 
+use App\Classes\Concerns\Displayable;
 use App\Classes\States\FoodState;
 use App\Classes\States\QuestionState;
 use App\Classes\States\State;
@@ -10,7 +11,8 @@ use Illuminate\Console\OutputStyle;
 
 class Game
 {
-    use InteractsWithIO;
+    use InteractsWithIO,
+        Displayable;
 
     /**
      * @var State
@@ -21,24 +23,6 @@ class Game
      * @var State
      */
     private $currentState;
-
-    /**
-     * @var \Closure
-     */
-    protected $validateInput;
-
-    /**
-     * @var string[]
-     */
-    private $stopWords = [
-        'exit',
-        'cancelar',
-    ];
-
-    /**
-     * @var string
-     */
-    private $trueAnswerRegex = '/^s/i';
 
     function __construct(State $initialState)
     {
@@ -96,47 +80,8 @@ class Game
         return $this;
     }
 
-    public function getStopWords(): array
-    {
-        return $this->stopWords;
-    }
-
-    public function setStopWords(array $stopWords): self
-    {
-        $this->stopWords = $stopWords;
-        return $this;
-    }
-
-    public function addStopWord(string $stopWord): self
-    {
-        $this->stopWords[] = $stopWord;
-        return $this;
-    }
-
     public function isFinish(): bool
     {
         return is_null($this->getState());
-    }
-
-    public function ask(string $question): string
-    {
-        return $this->getOutput()->ask($question, '', $this->validateInput);
-    }
-
-    public function confirm(string $question): bool
-    {
-        $answer = $this->getOutput()->ask($question, 'não', $this->validateInput);
-        return $this->isTrueAnswer($answer);
-    }
-
-    private function isTrueAnswer(string $answer): bool
-    {
-        if (\is_bool($answer)) {
-            return $answer;
-        }
-
-        $answerIsTrue = (bool) preg_match($this->trueAnswerRegex, $answer);
-
-        return '' === $answer || $answerIsTrue;
     }
 }

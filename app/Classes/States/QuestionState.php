@@ -6,7 +6,7 @@ class QuestionState extends State
 {
     public function action(): void
     {
-        $confirm = $this->getGame()->confirm("O prato que você pensou é {$this->getDescription()}?");
+        $confirm = $this->getGame()->displayConfirm("O prato que você pensou é {$this->getDescription()}? (sim/não)");
         $newState = $confirm ? $this->getStateYes() : $this->getStateNo();
         $this->getGame()->setState($newState);
     }
