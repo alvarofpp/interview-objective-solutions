@@ -46,7 +46,7 @@ class State
 
     public static function simpleState(string $description = null, State $state = null): State
     {
-        return (new State('Acertei!'))
+        return (new State($description))
             ->setStateYes($state);
     }
 
@@ -107,7 +107,7 @@ class State
         return $this;
     }
 
-    protected function changeStates(State $oldState, State $newState): bool
+    public function changeStates(State $oldState, State $newState): bool
     {
         $changed = false;
 
@@ -124,7 +124,7 @@ class State
 
     public function action(): void
     {
-        $this->getGame()->info($this->getDescription());
+        $this->getGame()->displayInfo($this->getDescription());
 
         if (!is_null($this->getStateYes())) {
             $this->getGame()->setState($this->getStateYes());

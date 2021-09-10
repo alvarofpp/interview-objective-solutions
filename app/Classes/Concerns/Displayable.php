@@ -39,6 +39,13 @@ trait Displayable
         return $this;
     }
 
+    public function displayInfo(string $message): void
+    {
+        if ($this->checkIfOutputExist()) {
+            $this->getOutput()->writeln('<info>'.$message.'</info>');
+        }
+    }
+
     public function displayAsk(string $question, string $default = ''): string
     {
         $answer = '';

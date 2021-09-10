@@ -36,19 +36,18 @@ class Game
         };
     }
 
-    public static function init(OutputStyle $output): Game
+    public static function init(OutputStyle $output = null): Game
     {
-        $firstState = new State('Pense em um prato que gosta');
-        $firstQuestionState = new QuestionState('massa');
-        $lasagnaFoodState = new FoodState('Lasanha');
-        $cakeFoodState = new FoodState('Bolo de Chocolate');
-
-        $firstState->setStateYes($firstQuestionState);
-        $firstQuestionState->setStateYes($lasagnaFoodState);
-        $firstQuestionState->setStateNo($cakeFoodState);
+        $questionState = (new QuestionState('massa'))
+            ->setStateYes(new FoodState('Lasanha'))
+            ->setStateNo(new FoodState('Bolo de Chocolate'));
+        $firstState = (new State('Pense em um prato que gosta'))
+            ->setStateYes($questionState);
 
         $game = new Game($firstState);
-        $game->setOutput($output);
+        if (!is_null($output)) {
+            $game->setOutput($output);
+        }
 
         return $game;
     }
