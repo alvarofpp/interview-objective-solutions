@@ -11,7 +11,9 @@ Após ter o Docker na sua máquina, você pode executar os seguintes comandos:
 ```shell
 # Criar imagem
 docker build -t objective/challenge .
+```
 
+```shell
 # Rodar o jogo
 docker run -it --rm objective/challenge play
 ```
