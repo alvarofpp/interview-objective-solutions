@@ -125,7 +125,7 @@ class Game
 
     public function confirm(string $question): bool
     {
-        $answer = $this->getOutput()->ask($question, 'no', $this->validateInput);
+        $answer = $this->getOutput()->ask($question, 'não', $this->validateInput);
         return $this->isTrueAnswer($answer);
     }
 
