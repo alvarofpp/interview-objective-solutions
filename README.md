@@ -15,3 +15,12 @@ docker build -t objective/challenge .
 # Rodar o jogo
 docker run -it --rm objective/challenge play
 ```
+
+## Testar
+
+Após criado a imagem, execute:
+
+```shell
+# Rodar o jogo
+docker run -it --rm objective/challenge test
+```
