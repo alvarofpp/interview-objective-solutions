@@ -19,7 +19,7 @@ class PlayCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Init the Gourmet Game';
+    protected $description = 'Starts the Gourmet game';
 
     /**
      * Execute the console command.
@@ -28,8 +28,9 @@ class PlayCommand extends Command
      */
     public function handle()
     {
-        $this->info('Gourmet game.');
-        $game = Game::init($this->input, $this->getOutput());
+        $this->info('--- GOURMET GAME ---');
+        $this->alert('Você pode encerrar o jogo a qualquer momento digitando "exit" ou "cancelar" (sem as aspas).');
+        $game = Game::init($this->getOutput());
 
         while (!$game->isFinish()) {
             $state = $game->getState();
